@@ -1,5 +1,3 @@
-# event_management_challenge
-
 # Event Management Challenge
 
 A dynamic and user-friendly application to manage events, attendees, and schedules. This project is built as part of a challenge to demonstrate event management features including event creation, updates, registration, and attendee tracking.
