@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import TopSetion from "../../components/cards/TopSetion";
-import ScrollableFrame from "../../components/pagination/ScrollableFrame";
 import { Button } from "antd";
 import ThreeDotDropdown from "../../components/buttons/ThreeDotDropdown";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import UserForm from "../../components/form/UserForm";
-
 import ConfrimDeleteModel from "../../components/models/ConfrimDeleteModel";
 import ReusableTable from "../../components/tables/ReusableTable";
+import { userData } from "../../utils/constantData";
 
 const UserManagement = () => {
   const [selectedItemData, setSelectedItemData] = useState(null);
@@ -15,8 +14,6 @@ const UserManagement = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isOpenActionModel, setIsOpenActionModel] = useState(false);
   const [isOpenDeleteModel, setIsOpenDeleteModel] = useState(false);
-  const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(20);
 
   const handleCancel = () => {
     setIsModalOpen(false);
@@ -54,17 +51,6 @@ const UserManagement = () => {
       title: "Email",
       dataIndex: "email",
       key: "email",
-    },
-    {
-      title: "Address",
-      dataIndex: "address",
-      key: "address",
-      render: (row) => (
-        <>
-          <p className="capitalize">{row?.address}</p>
-          <p className="capitalize">{row?.data?.country}</p>
-        </>
-      ),
     },
     {
       title: "Role",
@@ -125,12 +111,12 @@ const UserManagement = () => {
     },
   ];
 
-  const data = []?.map((el) => {
+  const data = userData?.map((el) => {
     return {
       key: el?._id,
-      name: `${el?.firstName} ${el?.lastName}`,
+      name: el?.name,
       email: el?.email,
-      telephone: el?.phone || "-",
+      telephone: el?.telephone,
       address: `${el?.city || " "}`,
       role: el?.role,
       data: el,
@@ -155,16 +141,7 @@ const UserManagement = () => {
           />
         }
       />
-      <ScrollableFrame
-        setPage={setPage}
-        page={page}
-        setLimit={setLimit}
-        limit={limit}
-        total={100}
-        count={Math.ceil(20000)}
-      >
-        <ReusableTable columns={columns} data={data} />
-      </ScrollableFrame>
+      <ReusableTable columns={columns} data={data} />
       {modelToOopen === "delete" && (
         <ConfrimDeleteModel
           isOpen={isOpenDeleteModel}

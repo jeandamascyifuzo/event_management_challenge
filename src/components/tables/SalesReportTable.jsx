@@ -3,6 +3,7 @@ import { Button } from "antd";
 import TicketCard from "../cards/TicketCard";
 import ReusableTable from "./ReusableTable";
 import ReusableDrawer from "../models/ReusableDrawer";
+import { reportData } from "../../utils/constantData";
 
 const SalesReportTable = ({ setPage, page, setLimit, limit }) => {
   const [openPaymentDetails, setOpenPaymentDetails] = useState(false);
@@ -28,11 +29,6 @@ const SalesReportTable = ({ setPage, page, setLimit, limit }) => {
       title: "Event",
       dataIndex: "event",
       key: "event",
-    },
-    {
-      title: "Tickets Categories",
-      dataIndex: "tCategory",
-      key: "tCategory",
     },
     {
       title: "Total Tickets",
@@ -69,20 +65,15 @@ const SalesReportTable = ({ setPage, page, setLimit, limit }) => {
     },
   ];
 
-  const data = []?.map((el) => {
+  const data = reportData?.map((el) => {
     return {
       key: el?._id,
-      date: el?.createdAt?.slice(0, 10),
-      event: el?.booking?.event?.title,
-      time: el?.booking?.event?.time_start,
-      tCategory: el?.booking?.tickets?.length,
-      tNumber: el?.booking?.tickets?.reduce(
-        (curr, item) => curr + item?.quantity,
-        0
-      ),
-      amount: el?.amount?.toLocaleString(),
-      paymentId: el?.transactionId,
-      method: el?.method,
+      date: el?.date,
+      event: el?.title,
+      tNumber: el?.totalTickets,
+      amount: el?.amountPaid,
+      paymentId: el?.paymentID,
+      method: el?.paymentMethod,
       status: el?.status,
       data: el?.tickets,
     };

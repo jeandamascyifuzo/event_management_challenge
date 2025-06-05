@@ -1,11 +1,12 @@
-import { Button, Switch, Tag } from "antd";
-import React, { useState } from "react";
+import { Button, Switch } from "antd";
+import { useState } from "react";
 import ThreeDotDropdown from "../buttons/ThreeDotDropdown";
 import EventForm from "../form/EventForm";
 import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import ConfrimDeleteModel from "../models/ConfrimDeleteModel";
 import ReusableTable from "./ReusableTable";
+import { eventData } from "../../utils/constantData";
 
 const EventsTables = () => {
   const navigate = useNavigate();
@@ -50,15 +51,11 @@ const EventsTables = () => {
       key: "location",
     },
     {
-      title: " Time(Start-End)",
+      title: "Time(Start-End)",
       dataIndex: "time",
       key: "time",
     },
-    {
-      title: "Category",
-      dataIndex: "category",
-      key: "category",
-    },
+
     {
       title: "Available Tickets (No)",
       dataIndex: "tickets",
@@ -73,28 +70,12 @@ const EventsTables = () => {
       title: "Published",
       dataIndex: "publish",
       key: "publish",
-      render: (row) => (
-        <Switch defaultChecked={row?.data?.isPublished} loading={false} />
-      ),
-    },
-    {
-      title: "Special",
-      dataIndex: "isPecial",
-      key: "isPecial",
-      render: (row) => (
-        <Switch
-          defaultChecked={row?.data?.class === "top" ? true : false}
-          loading={false}
-        />
-      ),
+      render: (row) => <Switch defaultChecked={row?.publish} loading={false} />,
     },
     {
       title: "Status",
       dataIndex: "status",
       key: "status",
-      render: (row) => (
-        <Tag className="capitalize py-0.5 px-3 font-roboto">{row.status}</Tag>
-      ),
     },
     {
       title: "",
@@ -156,19 +137,18 @@ const EventsTables = () => {
     },
   ];
 
-  const dataToDisplay = []?.map((el) => {
+  const dataToDisplay = eventData?.map((el) => {
     return {
       key: el?._id,
       date: el?.date?.slice(0, 10),
       title: el?.title,
       location: el?.location,
-      time: `${el?.time_start?.slice(0, 5)} - ${el?.time_end?.slice(0, 5)}`,
-      category: el?.category?.name,
-      tickets: el?.tickets?.reduce((curr, d) => curr + +d?.quantity, 0),
-      ticketSold: el?.tickets?.reduce((curr, d) => curr + +d?.sold, 0),
+      time: el?.time,
+      tickets: el?.availableTickets,
+      ticketSold: el?.sold,
       organizer: "Jean Kaka",
-      isPecial: el?.class,
       status: el?.status,
+      publish: el?.published,
       data: el,
     };
   });

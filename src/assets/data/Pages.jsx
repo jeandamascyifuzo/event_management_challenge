@@ -13,32 +13,12 @@ export const sidebarItems = [
     icon: <Calendar className="h-5 w-5" />,
     path: "/event",
   },
-  // {
-  //   id: 3,
-  //   name: "Promotion",
-  //   icon: <Megaphone className="h-5 w-5" />,
-  //   path: "/promotion",
-  // },
-
-  // {
-  //   id: 5,
-  //   name: "Payouts",
-  //   icon: <Wallet className="h-5 w-5" />,
-  //   path: "/payments",
-  // },
   {
     id: 6,
     name: "Reports",
     icon: <BarChart2 className="h-5 w-5" />,
     path: "/report",
   },
-  // {
-  //   id: 7,
-  //   name: "My Team",
-  //   icon: <UserPlus className="h-5 w-5" />,
-  //   path: "/team",
-  //  <Settings className="h-5 w-5" />,
-  // },
   {
     id: 8,
     name: "Users",
